@@ -8,12 +8,11 @@ import { Book } from '../shared/book';
 })
 export class BookComponent implements OnInit {
 
-  // Input: hier fließen Daten von oben hinein
+  // Input: hier fließen Daten von der Elternkomponente hinein
   @Input() book?: Book;
 
-  constructor() { }
+  constructor() {}
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
 }
