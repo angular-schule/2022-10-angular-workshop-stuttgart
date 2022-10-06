@@ -58,6 +58,7 @@ describe('BookRatingService', () => {
   });
 
   it('should create a new instance', () => {
+    book.rating = 3;
     const ratedBook = service.rateUp(book);
     expect(ratedBook).not.toBe(book); // ratedBook === book
   });
