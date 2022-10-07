@@ -8,7 +8,7 @@ import { BookRatingService } from '../shared/book-rating.service';
   styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent implements OnInit {
-  books: Book[] = [];
+  books: Book[];
 
   constructor(private rs: BookRatingService) {
     // diese Liste werden wir später per HTTP laden!

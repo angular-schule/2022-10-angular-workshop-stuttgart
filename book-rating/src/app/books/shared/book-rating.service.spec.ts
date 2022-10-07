@@ -9,7 +9,11 @@ describe('BookRatingService', () => {
 
   beforeEach(() => {
     // Arrange
-    TestBed.configureTestingModule({});
+    TestBed.configureTestingModule({
+      declarations: [],
+      imports: [],
+      providers: []
+    });
     service = TestBed.inject(BookRatingService);
     // Alternative: service = new BookRatingService();
 

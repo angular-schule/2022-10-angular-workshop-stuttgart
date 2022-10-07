@@ -13,7 +13,12 @@ describe('DashboardComponent', () => {
     .compileComponents();
 
     fixture = TestBed.createComponent(DashboardComponent);
+    // Instanz der TS-Klasse
     component = fixture.componentInstance;
+    // DOM-Element:
+    // fixture.nativeElement.querySelector('p')
+
+
     fixture.detectChanges();
   });
 
