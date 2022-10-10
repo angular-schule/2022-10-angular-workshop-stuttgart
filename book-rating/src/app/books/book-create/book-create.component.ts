@@ -7,6 +7,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class BookCreateComponent implements OnInit {
 
+  myText = 'Hallo Welt';
+  book = {
+    title: '',
+    description: ''
+  }
+
   constructor() { }
 
   ngOnInit(): void {
