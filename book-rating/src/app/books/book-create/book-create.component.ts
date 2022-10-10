@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormControl, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'br-book-create',
@@ -7,11 +8,23 @@ import { Component, OnInit } from '@angular/core';
 })
 export class BookCreateComponent implements OnInit {
 
-  myText = 'Hallo Welt';
-  book = {
-    title: '',
-    description: ''
-  }
+  bookForm = new FormGroup({
+    isbn: new FormControl('', {
+      nonNullable: true
+    }),
+    title: new FormControl('', {
+      nonNullable: true
+    }),
+    description: new FormControl('', {
+      nonNullable: true
+    }),
+    price: new FormControl(0, {
+      nonNullable: true
+    }),
+    rating: new FormControl(1, {
+      nonNullable: true
+    })
+  });
 
   constructor() { }
 
