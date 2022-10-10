@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { delay, of } from 'rxjs';
 import { Book } from '../shared/book';
 import { BookRatingService } from '../shared/book-rating.service';
 
@@ -18,6 +19,12 @@ describe('DashboardComponent', () => {
       rateDown: (b: Book) => {
         return b;
       }
+    };
+
+    // Ansatz für den BookStoreService
+    const storeMock = {
+      getAll: () => of([]),
+      getSingle: (isbn: string) => of({ isbn: isbn } as Book).pipe(delay(2000))
     };
 
     await TestBed.configureTestingModule({

@@ -17,6 +17,8 @@ export class BookComponent implements OnInit {
 
   constructor() {}
 
+  ngOnChanges(): void {}
+
   ngOnInit(): void {}
 
   doRateUp() {
