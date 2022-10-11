@@ -1,9 +1,15 @@
-<form [formGroup]="bookForm">
+<form [formGroup]="bookForm" (ngSubmit)="submitForm()">
   <div class="form-group">
     <label for="isbnInput">ISBN</label>
     <input type="text" id="isbnInput" class="form-control" formControlName="isbn">
     <div class="feedback-error" *ngIf="isInvalid('isbn')">Die ISBN ist ungültig.</div>
-    <div class="feedback-error">Die ISBN ist zu kurz.</div>
+    <div class="feedback-error" *ngIf="hasError('isbn', 'minlength')">Die ISBN ist zu kurz.</div>
+    <div class="feedback-error" *ngIf="hasError('isbn', 'maxlength')">Die ISBN ist zu lang.</div>
+    <div class="feedback-error" *ngIf="hasError('isbn', 'required')">Die ISBN muss eingegeben werden.</div>
+
+    <!--<bm-errors controlName="isbn" [messages]="{ minlength: 'ZU KURZ!' }"></bm-errors>-->
+
+    <pre>{{ bookForm.get('isbn')?.errors | json }}</pre>
   </div>
 
   <div class="form-group">
@@ -25,6 +31,11 @@
     <label>Price</label>
     <input type="number" class="form-control" formControlName="price">
   </div>
+
+  <button type="submit"
+    class="btn btn-success"
+    [disabled]="bookForm.invalid">Abschicken</button>
+
 </form>
 
 <pre>{{ bookForm.value | json }}</pre>

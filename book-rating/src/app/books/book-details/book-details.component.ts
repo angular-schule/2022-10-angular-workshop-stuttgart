@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Book } from '../shared/book';
 import { BookStoreService } from '../shared/book-store.service';
@@ -8,7 +8,7 @@ import { BookStoreService } from '../shared/book-store.service';
   templateUrl: './book-details.component.html',
   styleUrls: ['./book-details.component.scss']
 })
-export class BookDetailsComponent implements OnInit {
+export class BookDetailsComponent {
 
   book?: Book;
 
@@ -24,9 +24,6 @@ export class BookDetailsComponent implements OnInit {
         this.book = book;
       });
     });
-  }
-
-  ngOnInit(): void {
   }
 
 }

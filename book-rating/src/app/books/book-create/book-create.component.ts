@@ -4,7 +4,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 const isbnLength = Validators.compose([
   Validators.minLength(10),
   Validators.maxLength(13)
-]);
+])!;
 
 @Component({
   selector: 'br-book-create',
@@ -18,7 +18,7 @@ export class BookCreateComponent implements OnInit {
       nonNullable: true,
       validators: [
         Validators.required,
-        isbnLength!,
+        isbnLength,
         Validators.pattern(/^[0-9]*$/)
       ]
     }),
@@ -47,7 +47,7 @@ export class BookCreateComponent implements OnInit {
     })
   });
 
-  constructor() { }
+  constructor() {}
 
   ngOnInit(): void {
   }
@@ -66,6 +66,17 @@ export class BookCreateComponent implements OnInit {
 
   }
 
+  hasError(controlName: string, errorCode: string): boolean {
+    const control = this.bookForm.get(controlName);
+    return !!control && control.hasError(errorCode) && control.touched;
+    // return !!control && !!control.getError(errorCode) && control.touched;
+    // return !!control && !!control.errors?.[errorCode] && control.touched;
+  }
+
+
+  submitForm() {
+    
+  }
 }
 
 
