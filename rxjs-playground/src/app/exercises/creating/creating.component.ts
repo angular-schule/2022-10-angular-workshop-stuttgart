@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Observable, of, from, timer, interval, ReplaySubject, map, filter } from 'rxjs';
+import { Observable, of, from, timer, interval, ReplaySubject, map, filter, Subscriber, Observer } from 'rxjs';
 
 @Component({
   selector: 'rxw-creating',
@@ -22,7 +22,53 @@ export class CreatingComponent {
 
     /******************************/
 
-    
+    // of('A', 'B', 'C')
+    // from([1,2,3,4,5,6])
+    // interval(1000) // ---0---1---2---3---4---5 ...
+    // timer(3000)    // ---------0|
+    // timer(3000, 1000)    // ---------0---1---2---3---4---5 ...
+
+    timer(0, 1000).pipe(
+      map(e => e * 3),
+      filter(e => e % 2 === 0)
+    ).subscribe({
+      next: value => this.log(value),
+      complete: () => this.log('COMPLETE')
+    });
+
+
+    /******************************/
+
+    function producer(subscriber: Subscriber<number>) {
+      const result = Math.random();
+      subscriber.next(result);
+      subscriber.next(5);
+      subscriber.next(6);
+      subscriber.next(7);
+      setTimeout(() => subscriber.next(10), 2000)
+      // setTimeout(() => sub.error(20), 4000)
+      const timer = setTimeout(() => subscriber.complete(), 4000)
+
+      // Teardown Logic
+      return () => {
+        clearTimeout(timer);
+      };
+    }
+
+    const observer: Observer<number> = {
+      next: (value: any) => console.log(value),
+      error: (err: any) => console.error(err),
+      complete: () => console.log('FERTIG!')
+    }
+
+    // producer(observer);
+    // producer(observer);
+    // producer(observer);
+    // Finnische Notation
+    const myObservable$ = new Observable(producer);
+    myObservable$.subscribe(observer);
+
+
     /******************************/
   }
 
