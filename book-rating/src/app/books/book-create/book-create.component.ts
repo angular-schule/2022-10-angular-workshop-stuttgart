@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { Book } from '../shared/book';
+import { BookStoreService } from '../shared/book-store.service';
 
 const isbnLength = Validators.compose([
   Validators.minLength(10),
@@ -47,7 +50,7 @@ export class BookCreateComponent implements OnInit {
     })
   });
 
-  constructor() {}
+  constructor(private bs: BookStoreService, private router: Router) {}
 
   ngOnInit(): void {
   }
@@ -75,7 +78,14 @@ export class BookCreateComponent implements OnInit {
 
 
   submitForm() {
-    
+    const newBook: Book = this.bookForm.getRawValue();
+
+    this.bs.create(newBook).subscribe(receivedBook => {
+      this.router.navigate(['/books', receivedBook.isbn]);
+      // this.router.navigateByUrl('/books');
+    });
+
+
   }
 }
 
