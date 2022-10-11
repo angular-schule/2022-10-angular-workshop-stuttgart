@@ -9,9 +9,16 @@ import { BookStoreService } from '../shared/book-store.service';
   styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent implements OnInit {
+  d = Date.now();
+
   books: Book[] = [];
 
   constructor(private rs: BookRatingService, private bs: BookStoreService) {
+
+    /*setInterval(() => {
+      this.d = Date.now();
+    }, 1000);*/
+
     this.bs.getAll().subscribe(books => {
       this.books = books;
     });
