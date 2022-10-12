@@ -1,3 +1,11 @@
 <div class="form-group">
   <input class="form-control" type="search" [formControl]="searchControl">
 </div>
+
+<!--<br-book *ngFor="let b of books$ | async" [book]="b"></br-book>-->
+
+<div *ngIf="loading">Laden …</div>
+
+<ng-container *ngIf="books$ | async as books">
+  <p *ngFor="let b of books">{{ b.title }}</p>
+</ng-container>
