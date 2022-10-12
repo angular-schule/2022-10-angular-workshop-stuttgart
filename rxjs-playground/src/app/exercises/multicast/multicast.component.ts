@@ -14,14 +14,19 @@ export class MulticastComponent implements OnDestroy {
   logStream$ = new ReplaySubject<string>();
   private destroy$ = new Subject<void>();
 
-  measureValues$: Observable<number>; // später: Subject<number>;
+  measureValues$: Observable<number>;
 
   constructor(private mvs: MeasureValuesService, private es: ExerciseService) {
-    /**************!!**************/
-    this.measureValues$ = this.mvs.getValues().pipe(share());
-    // this.measureValues$ = interval(1000).pipe(share());
-    /**************!!**************/
 
+    // this.measureValues$ = this.mvs.getValues().pipe(share());
+    this.measureValues$ = this.mvs.getValues().pipe(share({
+      connector: () => new ReplaySubject(4)
+    })); // wie shareReplay(4)
+    // this.measureValues$ = interval(1000).pipe(share());
+
+    // this.measureValues$ = new BehaviorSubject(0);
+    // this.measureValues$ = new ReplaySubject(5); // bufferSize
+    // this.mvs.getValues().subscribe(this.measureValues$);
   }
 
   addListener() {

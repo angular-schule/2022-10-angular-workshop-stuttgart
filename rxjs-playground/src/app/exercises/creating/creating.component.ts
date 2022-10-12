@@ -22,9 +22,26 @@ export class CreatingComponent {
 
     /******************************/
 
-    // of('A', 'B', 'C')
+    function myOf(values: string[]): Observable<string> {
+      return new Observable<string>(sub => {
+        values.forEach(v => {
+          sub.next(v);
+        });
+        sub.complete();
+      });
+    }
+
+
+    /*myOf(['A', 'B', 'C']).subscribe({
+      next: value => this.log(value),
+      complete: () => this.log('COMPLETE')
+    });*/
+
+
+    // of('A', 'B', 'C') // ABC|
     // from([1,2,3,4,5,6])
-    // interval(1000) // ---0---1---2---3---4---5 ...
+    // interval(1000)    // ---0---1---2---3---4---5 ...
+    // timer(1000, 1000) // ---0---1---2---3---4---5 ...
     // timer(3000)    // ---------0|
     // timer(3000, 1000)    // ---------0---1---2---3---4---5 ...
 
@@ -36,6 +53,18 @@ export class CreatingComponent {
       complete: () => this.log('COMPLETE')
     });
 
+
+    /******************************/
+
+    // so KÖNNTE das Observable implementiert sein
+    /*class MyObservable {
+      constructor(private producer: any) {}
+
+      subscribe(observer: any) {
+        const subscriber = makeSubscriber(observer);
+        this.producer(subscriber);
+      }
+    }*/
 
     /******************************/
 
@@ -64,9 +93,12 @@ export class CreatingComponent {
     // producer(observer);
     // producer(observer);
     // producer(observer);
-    // Finnische Notation
+    // Finnische Notation$
     const myObservable$ = new Observable(producer);
-    myObservable$.subscribe(observer);
+    const sub = myObservable$.subscribe(observer);
+
+    // beim unsubscribe() wird die Teardown Logic ausgeführt
+    // sub.unsubscribe();
 
 
     /******************************/

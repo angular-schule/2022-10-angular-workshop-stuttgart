@@ -78,6 +78,7 @@ export class BookCreateComponent implements OnInit {
 
 
   submitForm() {
+    // this.bookForm.value
     const newBook: Book = this.bookForm.getRawValue();
 
     this.bs.create(newBook).subscribe(receivedBook => {
